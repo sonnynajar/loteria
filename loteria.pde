@@ -1,27 +1,30 @@
-//PImage temp;
 String[] fileNames;
 String img, audios;
-int leftW, rightW, imgCount, ranL, ranR;
+int leftW, rightW, ranL, ranR, row, col;
 int[] chosenCards;
-int[][] recCoors = new int[54][4];
+int[][][] recCoorsL;
 
 void setup() {
   background(255);
-  size(1760, 990); //1920x1080
+  size(900, 450); //1920x1080
   img = "image";
   audios = "audios";
   leftW = width/6;
   rightW = 5*width/6;
   chosenCards = new int[] {};
+  recCoorsL = new int[18][3][4];
   imageNames();
   squareCoor();
+  //addAllImages(); //NOT WORKING
+  println("Done Setup");
 }
 
 void draw() {
+  println("Drawing...");
   if(chosenCards.length <= 53){
     rectMode(CORNERS); 
     imageMode(CORNERS);
-    background(255);
+    //background(255);
     //fill(255);
     
     ranL = chooseCard();
@@ -31,10 +34,19 @@ void draw() {
 
     PImage left = loadImage("images/" + fileNames[ranL] + ".jpg");
     PImage right = loadImage("images/" + fileNames[ranR] + ".jpg");
+    
+    println("Left Card " + ranL);
     image(left, width/6 + 50, 0 + 50, width/2 - 25, height - 50);
-    image(left, recCoors[ranL][0],recCoors[ranL][1],recCoors[ranL][2],recCoors[ranL][3]);
+    row = ranL/3;
+    col = ranL - (row * 3);
+    image(left, recCoorsL[row][col][0],recCoorsL[row][col][1],recCoorsL[row][col][2],recCoorsL[row][col][3]);
+   
+    println("Right Card " + ranR);
     image(right, width/2 + 25, 0 + 50, 5*width/6 - 50, height - 50);
-    image(right, recCoors[ranR][0],recCoors[ranR][1],recCoors[ranR][2],recCoors[ranR][3]);
+    row = ranR/3;
+    col = ranR - (row * 3);
+    image(right, recCoorsL[row][col][0],recCoorsL[row][col][1],recCoorsL[row][col][2],recCoorsL[row][col][3]);
+    
     delay(1000);
   }
 }

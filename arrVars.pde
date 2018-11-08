@@ -16,26 +16,35 @@ void imageNames(){
                         };
 }
 
-void squareCoor(){
-  imgCount = 0 ;
-    
-    for(int i = 0; i <= 8; i++){
-      for(int j = 0; j <= 2; j++){
-        recCoors[i][0] = leftW * j/3;
-        recCoors[i][1] = height * i/9;
-        recCoors[i][2] = leftW * (j+1)/3;
-        recCoors[i][3] = height * (i+1)/9;
-        //temp = loadImage("images/" + fileNames[imgCount] + ".jpg");
-        //PImage a = get(0,0,temp.width,height/9);
-        //image(temp, leftW * j/3, height * i/9, leftW * (j+1)/3, height * (i+1)/9);
-        recCoors[i+27][0] = rightW + (leftW * j/3);
-        recCoors[i+27][1] = height * i/9;
-        recCoors[i+27][2] = rightW + (leftW * (j+1)/3);
-        recCoors[i+27][3] = height * (i+1)/9;
-        //temp = loadImage("images/" + fileNames[imgCount + 27] + ".jpg");
-        //PImage b = get(0,0,temp.width,height/9);
-        //image(temp, rightW + (leftW * j/3), height * i/9, rightW + (leftW * (j+1)/3), height * (i+1)/9);
-        imgCount++;
+void squareCoor(){   
+    for(int i = 0; i < 9; i++){ //row
+      for(int j = 0; j < 3; j++){ //column
+        recCoorsL[i][j][0] = leftW * j/3;
+        recCoorsL[i][j][1] = height * i/9;
+        recCoorsL[i][j][2] = leftW * (j+1)/3;
+        recCoorsL[i][j][3] = height * (i+1)/9;
+        
+        recCoorsL[i+9][j][0] = rightW + (leftW * j/3);
+        recCoorsL[i+9][j][1] = height * i/9;
+        recCoorsL[i+9][j][2] = rightW + (leftW * (j+1)/3);
+        recCoorsL[i+9][j][3] = height * (i+1)/9;
       }
     }
+}
+
+void addAllImages(){
+  PImage[] temp = new PImage[54];
+ for(int i = 0; i < 9; i++){
+   for(int j = 0; j < 3; j++){
+     temp[i] = loadImage("images/" + fileNames[i] + ".jpg");
+     image(temp[i], recCoorsL[i][j][0],recCoorsL[i][j][1],recCoorsL[i][j][2],recCoorsL[i][j][3]);
+     //rect(recCoorsL[i][j][0],recCoorsL[i][j][1],recCoorsL[i][j][2],recCoorsL[i][j][3]);
+     delay(100);
+     println("Drew card " + i );
+   }
+  }
+}
+  
+String coorsToString(int x, int y){
+  return  "Coors are " + recCoorsL[x][y][0] + "," + recCoorsL[x][y][1] + "," +recCoorsL[x][y][2] + "," + recCoorsL[x][y][3];
 }
