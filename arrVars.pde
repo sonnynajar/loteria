@@ -19,16 +19,7 @@ void imageNames(){
 
 void audioNames(){
   audioFileNames = new String[] {
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo",
-    "el gallo","el gallo","el gallo","el gallo","el gallo","el gallo"
-              /*,"el diablito", "la dama", "el catrin",
+    "el gallo","el diablito", "la dama", "el catrin",
     "el paraguas","la sirena","la escalera","la botella",
     "el barril","el arbol","el melon","el valiente",
     "el gorrito","la muerte","la pera","la bandera",
@@ -41,8 +32,14 @@ void audioNames(){
     "la rosa","la calavera","la campana","el cantarito",
     "el venado","el sol","la corona","la chalupa",
     "el pino","el pescado","la palma","la maceta",  
-    "el arpa","la rana"*/
+    "el arpa","la rana"
   };
+}
+
+void voiceNames(){
+  for(int v = 0; v < 54; v++){
+    cardNames[v] = minim.loadFile("audios/" +  audioFileNames[v] + ".mp3");
+  }
 }
 
 void squareCoor(){   
