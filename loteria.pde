@@ -1,19 +1,21 @@
-String[] fileNames;
-String img, audios;
+import processing.sound.*;
+SoundFile leftCardAudio, rightCardAudio;
+String[] imageFileNames, audioFileNames;
 int leftW, rightW, ranL, ranR, row, col;
 int[] chosenCards;
-int[][][] recCoorsL;
+int[][][] recCoors;
+
+
 
 void setup() {
   background(255);
   size(900, 450); //1920x1080
-  img = "image";
-  audios = "audios";
   leftW = width/6;
   rightW = 5*width/6;
   chosenCards = new int[] {};
-  recCoorsL = new int[18][3][4];
+  recCoors = new int[18][3][4];
   imageNames();
+  audioNames();
   squareCoor();
   //addAllImages(); //NOT WORKING
   println("Done Setup");
@@ -32,22 +34,30 @@ void draw() {
     ranR = chooseCard();
     chosenCards = sort( append(chosenCards, ranR));
 
-    PImage left = loadImage("images/" + fileNames[ranL] + ".jpg");
-    PImage right = loadImage("images/" + fileNames[ranR] + ".jpg");
+    PImage leftCardImage = loadImage("images/" + imageFileNames[ranL] + ".jpg");
+    PImage rightCardImage = loadImage("images/" + imageFileNames[ranR] + ".jpg");
+    leftCardAudio = new SoundFile(this, "C:\\Users\\rodav\\Documents\\Processing\\loteria\\audios\\" + audioFileNames[ranL] + ".mp3");
+    rightCardAudio = new SoundFile(this, "C:\\Users\\rodav\\Documents\\Processing\\loteria\\audios\\" + audioFileNames[ranL] + ".mp3");
+    leftCardAudio.rate(1);
+    rightCardAudio.rate(1);
     
-    println("Left Card " + ranL);
-    image(left, width/6 + 50, 0 + 50, width/2 - 25, height - 50);
+    println("Left Card " + ranL + ", name: " +  imageFileNames[ranL] + ", audio: " +audioFileNames[ranL]);
+    println("Right Card " + ranR + ", name: " +  imageFileNames[ranR] + ", audio: " +audioFileNames[ranR]);
+    image(leftCardImage, width/6 + 50, 0 + 50, width/2 - 25, height - 50);
     row = ranL/3;
     col = ranL - (row * 3);
-    image(left, recCoorsL[row][col][0],recCoorsL[row][col][1],recCoorsL[row][col][2],recCoorsL[row][col][3]);
+    image(leftCardImage, recCoors[row][col][0],recCoors[row][col][1],recCoors[row][col][2],recCoors[row][col][3]);
+    leftCardAudio.play();
+    
+    delay(5000);
    
-    println("Right Card " + ranR);
-    image(right, width/2 + 25, 0 + 50, 5*width/6 - 50, height - 50);
+    image(rightCardImage, width/2 + 25, 0 + 50, 5*width/6 - 50, height - 50);
+    rightCardAudio.play();
     row = ranR/3;
     col = ranR - (row * 3);
-    image(right, recCoorsL[row][col][0],recCoorsL[row][col][1],recCoorsL[row][col][2],recCoorsL[row][col][3]);
+    image(rightCardImage, recCoors[row][col][0],recCoors[row][col][1],recCoors[row][col][2],recCoors[row][col][3]);
     
-    delay(1000);
+    delay(2000);
   }
 }
 
@@ -61,7 +71,7 @@ boolean alreadyChosen(int x){
 }
 
 int chooseCard(){
-  int r = int(random(fileNames.length));
+  int r = int(random(imageFileNames.length));
   if(!alreadyChosen(r)){
     return r;
   }
