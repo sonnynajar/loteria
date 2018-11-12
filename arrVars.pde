@@ -36,12 +36,6 @@ void audioNames(){
   };
 }
 
-void voiceNames(){
-  for(int v = 0; v < 54; v++){
-    cardNames[v] = minim.loadFile("audios/" +  audioFileNames[v] + ".mp3");
-  }
-}
-
 void squareCoor(){   
     for(int i = 0; i < 9; i++){ //row
       for(int j = 0; j < 3; j++){ //column
